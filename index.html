@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <title>My Three.js Site</title>
-  <style>
-    body { margin: 0; overflow: hidden; background-color: #1a1a1a; }
-    canvas { display: block; }
-  </style>
+    <meta charset="utf-8">
+    <title>Grant Wang</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #1a1a1a;
+        }
 
-  <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+        canvas {
+            display: block;
+        }
+    </style>
 
-  <script type="importmap">
+    <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+
+    <script type="importmap">
     {
       "imports": {
         "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
@@ -19,7 +27,210 @@
     }
   </script>
 </head>
+<style>
+    /* Reset margins and set a dark background */
+    body {
+        margin: 0;
+        overflow-x: hidden;
+        /* Prevent horizontal scrollbars */
+        background-color: #FAEBD7;
+        color: white;
+        font-family: sans-serif;
+    }
+
+    /* Pin the 3D canvas to the background */
+    #bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        /* Pushes it behind the text */
+    }
+
+    /* Style your text sections */
+    main {
+        width: 100%;
+        z-index: 1;
+    }
+
+    section {
+        height: 100vh;
+        /* Make each section take up the full screen height */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 10%;
+        width: 40%;
+    }
+
+    h1 {
+        font-size: 4rem;
+        margin: 0;
+    }
+
+    p {
+        font-size: 1.5rem;
+        color: #aaa;
+    }
+
+    /* Sidebar Container Styling */
+    #school-sidebar {
+        position: fixed;
+        bottom: 50px;
+        right: 50px;
+        z-index: 10;
+        text-align: right;
+    }
+
+    #school-sidebar h2 {
+        font-size: 2rem;
+        /* Makes the name large */
+        margin: 0 0 15px 0;
+        /* Adds a little space below the name */
+        line-height: 1;
+        /* Keeps the text tight */
+        letter-spacing: -2px;
+        /* Modern, slightly compressed look */
+        color: #1b1818;
+    }
+
+    /* Sidebar Container Styling */
+    #sidebar {
+        position: fixed;
+        /* Locks it to the screen */
+        bottom: 50px;
+        /* Distance from the bottom edge */
+        left: 50px;
+        /* Distance from the left edge */
+        z-index: 10;
+        /* Ensures it sits on top of everything else */
+    }
+
+    #sidebar h1 {
+        font-size: 4rem;
+        /* Makes the name large */
+        margin: 0 0 15px 0;
+        /* Adds a little space below the name */
+        line-height: 1;
+        /* Keeps the text tight */
+        letter-spacing: -2px;
+        /* Modern, slightly compressed look */
+        color: #1b1818;
+
+        /* 1. Push it down the Y-axis by 80 viewport height units (vh) */
+        /* This puts it near the bottom of the screen initially */
+        /* transform: translateY(80vh); */
+
+        /* 2. Tell the transform property to animate smoothly */
+        /* transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); */
+    }
+
+
+    #sidebar h1.moved-up {
+        transform: translateY(0);
+    }
+
+    #sidebar h2 {
+        color: #1b1818;
+        font-size: 2rem;
+    }
+
+    /* List Styling */
+    #sidebar ul {
+        list-style-type: none;
+        /* Removes the bullet points */
+        padding: 0;
+        margin: 0;
+    }
+
+    #sidebar li {
+        margin-bottom: 10px;
+        /* Space between each link */
+    }
+
+    /* Link Styling */
+    #sidebar a {
+        color: #533b3b;
+        /* Starts as a subtle grey */
+        text-decoration: none;
+        /* Removes the underline */
+        font-size: 2rem;
+        font-weight: 700;
+        transition: color 0.3s ease;
+        /* Smooth fade effect */
+    }
+
+    /* Hover Effect */
+    #sidebar a:hover {
+        color: black;
+        /* Turns white when you mouse over it */
+    }
+
+    #sidebar b {
+        color: black;
+        /* Starts as a subtle grey */
+        text-decoration: none;
+        /* Removes the underline */
+        font-size: 4rem;
+        font-weight: 700;
+        transition: color 0.3s ease;
+        /* Smooth fade effect */
+    }
+
+    #sidebar b:hover {
+        color: #852c2c;
+        /* Turns white when you mouse over it */
+    }
+
+    section {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+        /* Pushes the text to the right */
+        text-align: right;
+        /* Aligns the text to the right */
+        padding: 0 10%;
+    }
+
+    #inprog {
+        text-align: center;
+        font-size: 14rem;
+    }
+</style>
+
 <body>
-  <script type="module" src="main.js"></script>
+    <canvas id="bg"></canvas>
+
+    <main>
+        <nav id="sidebar">
+            <h1><b href="#" id="link-home">Grant Wang</b></h1>
+            <h2>Embedded Firmware and PCB Engineer</h2>
+            <ul>
+                <li><a href="#" id="link-about">About</a></li>
+                <li><a href="#" id="link-experience">Experience</a></li>
+                <li><a href="#" id="link-projects">Projects</a></li>
+                <li><a href="#" id="link-contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <nav id="school-sidebar">
+            <h2>University of Michigan</h2>
+            <h2>MSE (SUGS) in ECE '26-'27</h2>
+            <h2>BSE in Computer Engineering '23-'26</h2>
+        </nav>
+
+        <nav id="Education-EXP">
+            <h3></h3>
+        </nav>
+
+        <nav id="inprog">
+            Under Construction
+        </nav>
+    </main>
+
+    <script type="module" src="main.js"></script>
 </body>
+
 </html>
