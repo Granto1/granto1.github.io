@@ -80,6 +80,17 @@
         right: 50px;
         z-index: 10;
         text-align: right;
+
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+    }
+
+    #school-sidebar.moveout {
+        /* translateX(-150%) moves the element left by 1.5x its own width, 
+           ensuring it completely clears the screen */
+        transform: translateY(150%);
+        opacity: 0;
+        /* Fades it out while moving */
+        pointer-events: none;
     }
 
     #school-sidebar h2 {
@@ -103,11 +114,40 @@
         left: 50px;
         /* Distance from the left edge */
         z-index: 10;
-        /* Ensures it sits on top of everything else */
+
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
     }
 
-    #sidebar h1 {
-        font-size: 4rem;
+    #sidebar.slide-out-left {
+        /* translateX(-150%) moves the element left by 1.5x its own width, 
+           ensuring it completely clears the screen */
+        transform: translateX(-150%);
+        opacity: 0;
+        /* Fades it out while moving */
+        pointer-events: none;
+    }
+
+    #title {
+        position: absolute;
+        /* Locks it to the screen */
+        bottom: 200px;
+        /* Distance from the bottom edge */
+        left: 50px;
+        /* Distance from the left edge */
+        z-index: 10;
+
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+    }
+
+    #title.moveup {
+        /* transform: translateY(-275%); */
+        position: absolute;
+        top: 50px;
+        right: 50px;
+    }
+
+    #title h1 {
+        font-size: 3rem;
         /* Makes the name large */
         margin: 0 0 15px 0;
         /* Adds a little space below the name */
@@ -125,14 +165,29 @@
         /* transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); */
     }
 
-
-    #sidebar h1.moved-up {
+    #title h1.moved-up {
         transform: translateY(0);
     }
 
-    #sidebar h2 {
+    #title h2 {
         color: #1b1818;
-        font-size: 2rem;
+        font-size: 1.5rem;
+    }
+
+    #title b {
+        color: black;
+        /* Starts as a subtle grey */
+        text-decoration: none;
+        /* Removes the underline */
+        font-size: 4rem;
+        font-weight: 700;
+        transition: color 0.3s ease;
+        /* Smooth fade effect */
+    }
+
+    #title b:hover {
+        color: #852c2c;
+        /* Turns white when you mouse over it */
     }
 
     /* List Styling */
@@ -141,6 +196,19 @@
         /* Removes the bullet points */
         padding: 0;
         margin: 0;
+    }
+
+    #sidebar ul.move {
+        display: flex;
+        /* This turns the vertical list into a horizontal row */
+        justify-content: space-evenly;
+        /* The magic command that spaces them perfectly! */
+        align-items: center;
+        width: 60%;
+        /* Keeps the links centered but stops them from stretching too far apart */
+        margin-left: auto;
+        /* Centers the 60% width block */
+        margin-right: auto;
     }
 
     #sidebar li {
@@ -154,7 +222,7 @@
         /* Starts as a subtle grey */
         text-decoration: none;
         /* Removes the underline */
-        font-size: 2rem;
+        font-size: 1.5rem;
         font-weight: 700;
         transition: color 0.3s ease;
         /* Smooth fade effect */
@@ -163,22 +231,6 @@
     /* Hover Effect */
     #sidebar a:hover {
         color: black;
-        /* Turns white when you mouse over it */
-    }
-
-    #sidebar b {
-        color: black;
-        /* Starts as a subtle grey */
-        text-decoration: none;
-        /* Removes the underline */
-        font-size: 4rem;
-        font-weight: 700;
-        transition: color 0.3s ease;
-        /* Smooth fade effect */
-    }
-
-    #sidebar b:hover {
-        color: #852c2c;
         /* Turns white when you mouse over it */
     }
 
@@ -198,15 +250,108 @@
         text-align: center;
         font-size: 14rem;
     }
+
+    /* About Section */
+    #about {
+        position: fixed;
+        /* Locks it to the screen */
+        top: 170px;
+        /* Distance from the bottom edge */
+        left: -600px;
+        /* Distance from the left edge */
+        z-index: 10;
+
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+        opacity: 0;
+
+        width: 35%;
+    }
+
+    #about h1 {
+        font-size: 4rem;
+        /* margin: 0; */
+        color: black;
+        /* left: 50px; */
+        /* top: 50px; */
+        /* padding: 0 10%; */
+    }
+
+    #about h2 {
+        font-size: 1.25rem;
+        /* margin: 0; */
+        color: black;
+        /* left: 50px; */
+        /* top: 50px; */
+        /* padding: 0 10%; */
+        margin-bottom: 10px;
+    }
+
+    #about.appear {
+        opacity: 1;
+        /* Locks it to the screen */
+        top: 170px;
+        /* Distance from the bottom edge */
+        left: 50px;
+    }
+
+    /* --- Bottom Navigation Styling --- */
+    #bottom-nav {
+        position: fixed;
+        bottom: 30px;
+        /* Sits 30px from the bottom edge */
+        left: 0;
+        width: 100%;
+        /* Spans the entire width of the screen */
+        z-index: 10;
+        opacity: 0;
+    }
+
+    #bottom-nav ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        /* This turns the vertical list into a horizontal row */
+        justify-content: space-evenly;
+        /* The magic command that spaces them perfectly! */
+        align-items: center;
+        width: 60%;
+        /* Keeps the links centered but stops them from stretching too far apart */
+        margin-left: auto;
+        /* Centers the 60% width block */
+        margin-right: auto;
+    }
+
+    #bottom-nav a {
+        color: #533b3b;
+        text-decoration: none;
+        font-size: 1.8rem;
+        font-weight: 700;
+        transition: color 0.3s ease, transform 0.3s ease;
+        display: inline-block;
+        /* Required for the transform effect below */
+    }
+
+    #bottom-nav a:hover {
+        color: black;
+        transform: translateY(-5px);
+        /* Makes the link "hop" up slightly when hovered */
+    }
+
+    #bottom-nav.appear {
+        opacity: 1;
+    }
 </style>
 
 <body>
     <canvas id="bg"></canvas>
 
     <main>
-        <nav id="sidebar">
+        <nav id="title">
             <h1><b href="#" id="link-home">Grant Wang</b></h1>
             <h2>Embedded Firmware and PCB Engineer</h2>
+        </nav>
+        <nav id="sidebar">
             <ul>
                 <li><a href="#" id="link-about">About</a></li>
                 <li><a href="#" id="link-experience">Experience</a></li>
@@ -223,6 +368,26 @@
 
         <nav id="Education-EXP">
             <h3></h3>
+        </nav>
+
+        <nav id="about">
+            <h1>About</h1>
+            <h2>Hi all, I'm Grant, currently a third year undergraduate Computer Engineering Student at the University
+                of Michigan.</h2>
+            <h2>My area of focus is in Embedded Systems and Digital Signal Processing! I like building fun projects,
+                writing firmware, and designing PCBs!</h2>
+            <h2>I will be pursuing a Masters in ECE focusing on Embedded Systems in Fall of 2026.</h2>
+            <h2>I'd like to use this website to showcase the various projects I've worked on and showcase them with the
+                power of Three.js!</h2>
+        </nav>
+
+        <nav id="bottom-nav">
+            <ul>
+                <li><a href="#" id="link-about">About</a></li>
+                <li><a href="#" id="link-experience">Experience</a></li>
+                <li><a href="#" id="link-projects">Projects</a></li>
+                <li><a href="#" id="link-contact">Contact</a></li>
+            </ul>
         </nav>
 
         <nav id="inprog">
